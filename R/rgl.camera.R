@@ -40,19 +40,19 @@ rgl.camera = function(position=10, direction=NULL, angle=0, fov=0) {
     if (length(position)==1) {
       rgl::observer3d(0,0,position)
     } else if (length(position)==3) {
-      um = par3d()$userMatrix
+      um = rgl::par3d()$userMatrix
       ehorz = um[1,1:3] # unit vector displayed left to right
       evert = um[2,1:3] # unit vector displayed bottom to top
       eperp = um[3,1:3] # unit vector displayed out of screen
-      b = par3d()$bbox
+      b = rgl::par3d()$bbox
       center = c(mean(b[1:2]), mean(b[3:4]), mean(b[5:6]))
       shorz = sum((position-center[1])*ehorz)
       svert = sum((position-center[2])*evert)
       sperp = sum((position-center[3])*eperp)
-      userMatrix = par3d("userMatrix")
-      rgl::par3d(userMatrix = userMatrix %*% t(translationMatrix(-shorz*ehorz[1]-svert*evert[1],
-                                                                 -shorz*ehorz[2]-svert*evert[2],
-                                                                 -shorz*ehorz[3]-svert*evert[3])))
+      userMatrix = rgl::par3d("userMatrix")
+      rgl::par3d(userMatrix = userMatrix %*% t(rgl::translationMatrix(-shorz*ehorz[1]-svert*evert[1],
+                                                                      -shorz*ehorz[2]-svert*evert[2],
+                                                                      -shorz*ehorz[3]-svert*evert[3])))
 
       rgl::observer3d(0,0,sperp)
     } else {

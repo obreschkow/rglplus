@@ -6,13 +6,14 @@
 #'
 #' @param plane character string, which can be either of `xy`, `yx`, `yz`, `zy`, `zx`, `xz`, where the  first letter is the axis displayed from left to right and the second letter is the axis displayed from bottom to top. The third axis point either out of the screen or into the screen following the standard right-hand convention.
 #' @param fov field of view in degrees, as used in \code{\link[rgl]{rgl.viewpoint}}.
+#' @param ... additional arguments for \code{\link[rgl]{rgl.viewpoint}}.
 #'
 #' @author Danail Obreschkow
 #'
 #' @examples
-#' rgl.new(width=0.5, aspect=1.0, col='black')
-#' rgl.ball(0.5, 0.5, 0.5, 0.5, png='earth.png')
-#' rgl.orthoview('xy')
+#' rgl.new(width=0.5, aspect=1.0, col='black', xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
+#' rgl.ball(0, 0, 0, 1.4, png=system.file('jupiter.png', package='rglplus'), specular='#333333')
+#' rgl.orthoview('yz', fov=20)
 #'
 #' @seealso \code{\link{rgl.camera}}
 #'

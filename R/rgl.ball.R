@@ -9,7 +9,7 @@
 #' @param z z-coordinate of the center of the sphere
 #' @param radius radius of the sphere
 #' @param depth integer (1...7) specifying the number of rectangles (=6*4^depth)
-#' @param png optional character string specifying the filename of a png-image to be rendered on the sphere. This file must contain the map to be displayed in an equirectangular projection (also known as equidistant cylindrical projection).
+#' @param png optional character string specifying the file name of a png-image to be rendered on the sphere. This file must contain the map to be displayed in an equirectangular projection (also known as equidistant cylindrical projection).
 #' @param ... additional parameter to refine the material properties (see \code{\link[rgl]{rgl.material}}).
 #'
 #' @author Danail Obreschkow (thanks to input from Aaron Robotham's \code{sphereplot} package)
@@ -17,16 +17,15 @@
 #' @examples
 #' # Show Earth with core
 #' rgl.new(width=0.5, aspect=1.0, col='black', xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
-#' rgl.ball(0, 0, 0, 1, png='earth.png', alpha=0.5)
+#' rgl.ball(0, 0, 0, 1, png=system.file('earth.png', package='rglplus'), emission='grey', alpha=0.5)
 #' rgl.ball(0, 0, 0, 0.6, col='red')
+#' rgl.orthoview('yz', zoom=0.5)
 #'
 #' @export rgl.ball
 
 rgl.ball = function(x=0, y=0, z=0, radius=1, depth=4, png=NULL, ...) {
 
   if (depth<1 | depth>7 | depth!=round(depth)) stop('depth must be a positive integer <=7.')
-  # depth = integer specifying the number of quads (=6*4^depth)
-  # ... material properties
 
   if (is.null(png)) {
 
@@ -63,8 +62,8 @@ rgl.ball = function(x=0, y=0, z=0, radius=1, depth=4, png=NULL, ...) {
     pz = z + radius * sin(latmat)
 
     # render sphere
-    rgl::surface3d(x, y, z, col = "white", texture = png, axes = FALSE,
-                   box = FALSE, xlab = "", ylab = "", zlab = "", normal_x = x,
-                   normal_y = y, normal_z = z, textype = "rgb", ...)
+    rgl::surface3d(px, py, pz, col = "white", texture = png, axes = FALSE,
+                   box = FALSE, xlab = "", ylab = "", zlab = "", normal_x = px,
+                   normal_y = py, normal_z = pz, textype = "rgb", ...)
   }
 }
