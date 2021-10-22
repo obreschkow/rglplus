@@ -6,7 +6,8 @@ Author: Danail Obreschkow
 Maintainer: The package maintainer <danail.obreschkow@gmail.com>
 Description: Various routines for 3D plotting in conjunction with the rgl package.
 Imports:
-    rgl
+    rgl,
+    stats
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
