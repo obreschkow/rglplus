@@ -4,14 +4,14 @@
 \alias{rgl.camera}
 \title{Place observer}
 \usage{
-rgl.camera(position = 10, direction = NULL, angle = 0, fov = 0)
+rgl.camera(position = 10, direction = NULL, orientation = 0, fov = 0)
 }
 \arguments{
 \item{position}{either a single number, a 3-vector or NULL. A single number is interpreted as the distance between the observer and the center of the scene. The observer is placed at distance along the line-of-sight of the current/specified viewing direction. A 3-vector is interpreted as the actual position of the observer in the coordinates of the 3D plot. If \code{NULL}, the position is adjusted automatically.}
 
 \item{direction}{optional 3-vector specifying the direction in which the observer is looking. The norm of the vector is irrelevant, but has to be larger than zero.}
 
-\item{angle}{(only used if \code{direction} is specified) position angle in degrees, defining the rotation of the camera around the line-of-sight. This angle is defined as the angle formed between the horizontal line on the screen and the projected z-axis. Only the z-axis gets very close to the line-of-sight, the angle refers to the projected y-axis.}
+\item{orientation}{(only used if \code{direction} is specified) signgle number of 3-vector, defining the rotation of the camera around the line-of-sight. If a signle number is given, it represents the angle in degrees between the vertical direction on the screen and the projected z-axis. Only the z-axis gets very close to the line-of-sight, the angle refers to the projected y-axis. If a 3-vector is provided, it will be oriented such that it's projection goes from bottom to top on the screen. Thus, this 3-vector must *not* be parallel to the direction.}
 
 \item{fov}{(only used if \code{direction} is specified) field of view in degrees, as used in \code{\link[rgl]{rgl.viewpoint}}. This is roughly the field-of-view seen along the shortest axis of the window.}
 }
@@ -20,7 +20,9 @@ Set the position, orientation and field-of-view of the observer/camera.
 }
 \examples{
 rgl.test.scene()
-rgl.camera(position=c(1.4,1.4,1.4), direction=c(-1,-1,-1), fov=60, angle=0)
+for (a in seq(0,pi/2,length=200)) {
+rgl.camera(position=3, direction=c(-cos(a),0,-sin(a)), orientation=c(-sin(a),0,cos(a)), fov=60)
+}
 
 }
 \author{

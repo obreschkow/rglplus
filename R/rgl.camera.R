@@ -6,32 +6,45 @@
 #'
 #' @param position either a single number, a 3-vector or NULL. A single number is interpreted as the distance between the observer and the center of the scene. The observer is placed at distance along the line-of-sight of the current/specified viewing direction. A 3-vector is interpreted as the actual position of the observer in the coordinates of the 3D plot. If \code{NULL}, the position is adjusted automatically.
 #' @param direction optional 3-vector specifying the direction in which the observer is looking. The norm of the vector is irrelevant, but has to be larger than zero.
-#' @param angle (only used if \code{direction} is specified) position angle in degrees, defining the rotation of the camera around the line-of-sight. This angle is defined as the angle formed between the horizontal line on the screen and the projected z-axis. Only the z-axis gets very close to the line-of-sight, the angle refers to the projected y-axis.
+#' @param orientation (only used if \code{direction} is specified) signgle number of 3-vector, defining the rotation of the camera around the line-of-sight. If a signle number is given, it represents the angle in degrees between the vertical direction on the screen and the projected z-axis. Only the z-axis gets very close to the line-of-sight, the angle refers to the projected y-axis. If a 3-vector is provided, it will be oriented such that it's projection goes from bottom to top on the screen. Thus, this 3-vector must *not* be parallel to the direction.
 #' @param fov (only used if \code{direction} is specified) field of view in degrees, as used in \code{\link[rgl]{rgl.viewpoint}}. This is roughly the field-of-view seen along the shortest axis of the window.
 #'
 #' @author Danail Obreschkow
 #'
 #' @examples
 #' rgl.test.scene()
-#' rgl.camera(position=c(1.4,1.4,1.4), direction=c(-1,-1,-1), fov=60, angle=0)
+#' for (a in seq(0,pi/2,length=200)) {
+#' rgl.camera(position=3, direction=c(-cos(a),0,-sin(a)), orientation=c(-sin(a),0,cos(a)), fov=60)
+#' }
 #'
 #' @export rgl.camera
 
-rgl.camera = function(position=10, direction=NULL, angle=0, fov=0) {
+rgl.camera = function(position=10, direction=NULL, orientation=0, fov=0) {
 
   skip = rgl::par3d()$skipRedraw
   rgl::par3d(skipRedraw=TRUE)
 
-  # compute overall rotation matrix from direction and angle
+  # compute overall rotation matrix from direction and orientation
   if (!is.null(direction)) {
     if (sum(direction^2)<=0) stop('direction has to be a vector of positive length.')
     e3 = -direction/sqrt(sum(direction^2))
-    fz = ifelse(e3[3]^2<0.6,1,cos(min(1,1*((e3[3]^2-0.6)/0.4)^5)*pi/2)^2)
-    er = c(0,sqrt(1-fz),sqrt(fz)) # reference unit-vector which is *never* parallel to e3
-    e1 = c(er[2]*e3[3]-er[3]*e3[2],er[3]*e3[1]-er[1]*e3[3],er[1]*e3[2]-er[2]*e3[1])
-    e1 = e1/sqrt(sum(e1^2))
-    e2 = c(e3[2]*e1[3]-e3[3]*e1[2],e3[3]*e1[1]-e3[1]*e1[3],e3[1]*e1[2]-e3[2]*e1[1])
-    um = rgl::rotationMatrix(matrix=rbind(e1,e2,e3))%*%rgl::rotationMatrix(angle/180*pi,e3[1],e3[2],e3[3])
+    if (length(orientation)==1) {
+      fz = ifelse(e3[3]^2<0.6,1,cos(min(1,1*((e3[3]^2-0.6)/0.4)^5)*pi/2)^2)
+      er = c(0,sqrt(1-fz),sqrt(fz)) # reference unit-vector which is *never* parallel to e3
+      e1 = c(er[2]*e3[3]-er[3]*e3[2],er[3]*e3[1]-er[1]*e3[3],er[1]*e3[2]-er[2]*e3[1])
+      e1 = e1/sqrt(sum(e1^2))
+      e2 = c(e3[2]*e1[3]-e3[3]*e1[2],e3[3]*e1[1]-e3[1]*e1[3],e3[1]*e1[2]-e3[2]*e1[1])
+      um = rgl::rotationMatrix(matrix=rbind(e1,e2,e3))%*%rgl::rotationMatrix(orientation/180*pi,e3[1],e3[2],e3[3])
+    } else if (length(orientation)==3) {
+      e1 = c(e3[2]*orientation[3]-e3[3]*orientation[2],
+             e3[3]*orientation[1]-e3[1]*orientation[3],
+             e3[1]*orientation[2]-e3[2]*orientation[1])
+      e1 = -e1/sqrt(sum(e1^2))
+      e2 = c(e3[2]*e1[3]-e3[3]*e1[2],e3[3]*e1[1]-e3[1]*e1[3],e3[1]*e1[2]-e3[2]*e1[1])
+      um = rgl::rotationMatrix(matrix=rbind(e1,e2,e3))
+    } else {
+      stop('unknown orientation type')
+    }
     rgl::rgl.viewpoint(userMatrix=um,fov=fov)
   }
 
