@@ -7,7 +7,7 @@
 rgl.hold()
 }
 \description{
-Prevents the following rgl functions from drawing on the screen, until the function \code{\link{rgl.draw}} is called. This is used to accelerate complex drawings.
+Prevents the following rgl functions from drawing on the screen, until the function \code{\link{rgl.draw}} is called. This is used to accelerate complex drawings. This routine is identical to calling \code{par3d(skipRedraw=TRUE)}.
 }
 \seealso{
 \code{\link{rgl.draw}}

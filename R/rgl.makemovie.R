@@ -6,12 +6,12 @@
 #' @description Generates an MP4-movie of a 3d rgl scene with time-dependent objects and/or a camera path. The routine has been developed and tested for MacOS and it requires on a working installation of ffmpeg.
 #'
 #' @param frame optional function that plots or updates the scene at a given time. This function must have exactly one  argument, which specifies the time of the frame.
-#' @param path optional list that specifies the camera path at some discrete times. The list contains the following elements:\cr\cr
-#' \code{time} = n-vector of strictly monotonically increasing discrete times; if not given positions will be assumed equally spaced in time.\cr
-#' \code{position} = n-by-3 matrix of discrete camera positions at the specified times\cr
-#' \code{direction} = n-by-3 matrix of discrete camera directions at the specified times; if not given the tangent vector of the path will be used as direction\cr
-#' \code{orientation} = n-by-3 matrix of discrete camera orientations (rotations around camera axis) at the specified times; if not given the normal vector of the path will be used as direction\cr
-#' \code{fov} = n-vector of field of view (in degrees) at the specified times\cr\cr
+#' @param path optional list that specifies the motion of the camera at some discrete times. The list contains the following elements (for more details see \code{\link{rgl.camera}}):\cr\cr
+#' \code{time} = optional n-vector of strictly monotonically increasing discrete times; if not given, the other arguments (potion, direction, up, fov) are assumed equally spaced in time.\cr
+#' \code{position} = n-by-3 matrix of n discrete camera positions at the specified times; can also be a 3-vector specifying a constant position.\cr
+#' \code{direction} = n-by-3 matrix of n discrete camera directions at the specified times; can also be a 3-vector specifying a constant direction. If not given, the tangent vector of the path is used as direction.\cr
+#' \code{up} = n-by-3 matrix of n discrete up-directions of the camera; can also be a 3-vector specifying a constant up-direction. If not given, the (outward facing) normal vector of the path is used as up-direction.\cr
+#' \code{fov} = n-vector of field of view (in degrees) at the specified times; an also be a single number specifying a constant field of view.\cr\cr
 #' @param tmin time of first frame in the movie. Should normally not be smaller than the first time in path$time. If not specified, the first value in path$time is adopted.
 #' @param tmax time of last frame in the movie. Should normally not be larger than the last time in path$time. If not specified, the last value in path$time is adopted.
 #' @param nframes number of frames in the movie. The time variable is sampled evenly between \code{tmin} and \code{tmax}.
@@ -58,7 +58,7 @@
 #' alpha = seq(0,2*pi,length=37)
 #' path = list(position=cbind(1.1*cos(alpha),1.1*sin(alpha),0),
 #'             direction=cbind(-1.5*sin(alpha)-cos(alpha),1.5*cos(alpha)-sin(alpha),0),
-#'             orientation=cbind(cos(alpha),sin(alpha),sin(alpha)/2),
+#'             up=cbind(cos(alpha),sin(alpha),sin(alpha)/2),
 #'             fov=30)
 #'
 #' # Produce movie
@@ -136,28 +136,26 @@ rgl.makemovie = function(frame=NULL, path=NULL,
     s$dy = stats::splinefun(path$time, path$direction[,2])
     s$dz = stats::splinefun(path$time, path$direction[,3])
 
-    # construct camera orientation array
-    if (is.null(path$orientation)) {
+    # construct camera up-direction array
+    if (is.null(path$up)) {
       dt = 0.1*min(diff(path$time))
-      path$orientation = array(NA,c(n,3))
-      path$orientation[,1] = -(s$dx(path$time+dt/2)-s$dx(path$time-dt/2))/dt
-      path$orientation[,2] = -(s$dy(path$time+dt/2)-s$dy(path$time-dt/2))/dt
-      path$orientation[,3] = -(s$dz(path$time+dt/2)-s$dz(path$time-dt/2))/dt
-      #neg = path$orientation[,3]<0
-      #path$orientation[neg,] = -path$orientation[neg,] # make sure that top is always in positive z-direction
+      path$up = array(NA,c(n,3))
+      path$up[,1] = -(s$dx(path$time+dt/2)-s$dx(path$time-dt/2))/dt
+      path$up[,2] = -(s$dy(path$time+dt/2)-s$dy(path$time-dt/2))/dt
+      path$up[,3] = -(s$dz(path$time+dt/2)-s$dz(path$time-dt/2))/dt
     }
 
-    # check camera orientation array
-    path$orientation = as.matrix(path$orientation)
-    if (length(path$orientation)==3) path$orientation = t(array(path$orientation,c(3,n)))
-    if (length(dim(path$orientation))!=2) stop('path$orientation must be an n-by-3 matrix')
-    if (dim(path$orientation)[1]!=n) stop('path$orientation must be an n-by-3 matrix')
-    if (dim(path$orientation)[2]!=3) stop('path$orientation must be an n-by-3 matrix')
+    # check camera up-direction array
+    path$up = as.matrix(path$up)
+    if (length(path$up)==3) path$up = t(array(path$up,c(3,n)))
+    if (length(dim(path$up))!=2) stop('path$up must be an n-by-3 matrix')
+    if (dim(path$up)[1]!=n) stop('path$up must be an n-by-3 matrix')
+    if (dim(path$up)[2]!=3) stop('path$up must be an n-by-3 matrix')
 
-    # interpolate camera orientation
-    s$ox = stats::splinefun(path$time, path$orientation[,1])
-    s$oy = stats::splinefun(path$time, path$orientation[,2])
-    s$oz = stats::splinefun(path$time, path$orientation[,3])
+    # interpolate camera up-direction
+    s$ux = stats::splinefun(path$time, path$up[,1])
+    s$uy = stats::splinefun(path$time, path$up[,2])
+    s$uz = stats::splinefun(path$time, path$up[,3])
 
     # construct field of view
     if (is.null(path$fov)) path$fov = 60
@@ -203,9 +201,9 @@ rgl.makemovie = function(frame=NULL, path=NULL,
     if (!is.null(path)) {
       position = c(s$x(t), s$y(t), s$z(t))
       direction = c(s$dx(t), s$dy(t), s$dz(t))
-      orientation = c(s$ox(t), s$oy(t), s$oz(t))
+      up = c(s$ux(t), s$uy(t), s$uz(t))
       fov = s$fov(t)
-      rgl.camera(position, direction, orientation, fov)
+      rgl.camera(position, direction, up, fov)
     }
 
     # save frame

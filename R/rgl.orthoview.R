@@ -1,6 +1,6 @@
 #' @title Display orthogonal projection
 #'
-#' @description Display orthogonal projection on principal Cartesian axes
+#' @description Display orthogonal projection on principal Cartesian planes, with scene centre in the image centre.
 #'
 #' @importFrom rgl identityMatrix rotationMatrix rgl.viewpoint
 #'
@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' rgl.new(width=0.5, aspect=1.0, col='black', xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
-#' rgl.ball(0, 0, 0, 1.4, png=system.file('jupiter.png', package='rglplus'), specular='#333333')
+#' rgl.ball(0, 0, 0, 1.4, png=system.file('earth.png', package='rglplus'), specular='#333333')
 #' rgl.orthoview('yz', fov=20)
 #'
 #' @seealso \code{\link{rgl.camera}}

@@ -23,12 +23,12 @@ rgl.makemovie(
 \arguments{
 \item{frame}{optional function that plots or updates the scene at a given time. This function must have exactly one  argument, which specifies the time of the frame.}
 
-\item{path}{optional list that specifies the camera path at some discrete times. The list contains the following elements:\cr\cr
-\code{time} = n-vector of strictly monotonically increasing discrete times; if not given positions will be assumed equally spaced in time.\cr
-\code{position} = n-by-3 matrix of discrete camera positions at the specified times\cr
-\code{direction} = n-by-3 matrix of discrete camera directions at the specified times; if not given the tangent vector of the path will be used as direction\cr
-\code{orientation} = n-by-3 matrix of discrete camera orientations (rotations around camera axis) at the specified times; if not given the normal vector of the path will be used as direction\cr
-\code{fov} = n-vector of field of view (in degrees) at the specified times\cr\cr}
+\item{path}{optional list that specifies the motion of the camera at some discrete times. The list contains the following elements (for more details see \code{\link{rgl.camera}}):\cr\cr
+\code{time} = optional n-vector of strictly monotonically increasing discrete times; if not given, the other arguments (potion, direction, up, fov) are assumed equally spaced in time.\cr
+\code{position} = n-by-3 matrix of n discrete camera positions at the specified times; can also be a 3-vector specifying a constant position.\cr
+\code{direction} = n-by-3 matrix of n discrete camera directions at the specified times; can also be a 3-vector specifying a constant direction. If not given, the tangent vector of the path is used as direction.\cr
+\code{up} = n-by-3 matrix of n discrete up-directions of the camera; can also be a 3-vector specifying a constant up-direction. If not given, the (outward facing) normal vector of the path is used as up-direction.\cr
+\code{fov} = n-vector of field of view (in degrees) at the specified times; an also be a single number specifying a constant field of view.\cr\cr}
 
 \item{tmin}{time of first frame in the movie. Should normally not be smaller than the first time in path$time. If not specified, the first value in path$time is adopted.}
 
@@ -87,7 +87,7 @@ frame = function(t) {
 alpha = seq(0,2*pi,length=37)
 path = list(position=cbind(1.1*cos(alpha),1.1*sin(alpha),0),
             direction=cbind(-1.5*sin(alpha)-cos(alpha),1.5*cos(alpha)-sin(alpha),0),
-            orientation=cbind(cos(alpha),sin(alpha),sin(alpha)/2),
+            up=cbind(cos(alpha),sin(alpha),sin(alpha)/2),
             fov=30)
 
 # Produce movie

@@ -14,11 +14,11 @@ rgl.orthoview(plane = "xy", fov = 0, ...)
 \item{...}{additional arguments for \code{\link[rgl]{rgl.viewpoint}}.}
 }
 \description{
-Display orthogonal projection on principal Cartesian axes
+Display orthogonal projection on principal Cartesian planes, with scene centre in the image centre.
 }
 \examples{
 rgl.new(width=0.5, aspect=1.0, col='black', xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
-rgl.ball(0, 0, 0, 1.4, png=system.file('jupiter.png', package='rglplus'), specular='#333333')
+rgl.ball(0, 0, 0, 1.4, png=system.file('earth.png', package='rglplus'), specular='#333333')
 rgl.orthoview('yz', fov=20)
 
 }
