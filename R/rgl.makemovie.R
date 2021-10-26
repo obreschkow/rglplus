@@ -222,7 +222,7 @@ rgl.makemovie = function(frame=NULL, path=NULL,
 
   # remove frames
   if (!keep.frames) {
-    cat('Delete individual frames.')
+    cat('Delete individual frames.\n')
     call = sprintf('rm -rf %s',frame.path)
     system(call)
   }

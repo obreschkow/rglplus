@@ -4,7 +4,7 @@
 #'
 #' @importFrom rgl identityMatrix rotationMatrix rgl.viewpoint
 #'
-#' @param plane character string, which can be either of `xy`, `yx`, `yz`, `zy`, `zx`, `xz`, where the  first letter is the axis displayed from left to right and the second letter is the axis displayed from bottom to top. The third axis point either out of the screen or into the screen following the standard right-hand convention.
+#' @param plane character string, which can be either of `xy`, `yx`, `yz`, `zy`, `zx`, `xz`, where the  first letter is the axis displayed from left to right and the second letter is the axis displayed from bottom to top. The third axis points either out of the screen or into the screen following the right-hand convention.
 #' @param fov field of view in degrees, as used in \code{\link[rgl]{rgl.viewpoint}}.
 #' @param ... additional arguments for \code{\link[rgl]{rgl.viewpoint}}.
 #'

@@ -5,10 +5,12 @@
 \title{Open and initialize new 3D plot}
 \usage{
 rgl.new(
-  width = 1,
+  width = 0.5,
   aspect = 16/9,
+  orientation = "xy",
   fov = 30,
   col = "white",
+  light = TRUE,
   xlim = c(0, 1),
   ylim = c(0, 1),
   zlim = c(0, 1),
@@ -26,9 +28,13 @@ rgl.new(
 
 \item{aspect}{aspect ratio of window, defined as the ratio of vertical-to-horizontal size.}
 
+\item{orientation}{3-by-3 rotation matrix or 2-character string specifying the orientation of the camera. For character string the allowed values are `xy`, `yx`, `yz`, `zy`, `zx`, `xz`, where the  first letter is the axis displayed from left to right and the second letter is the axis displayed from bottom to top. The third axis points either out of the screen or into the screen following the right-hand convention. This is the same as the \code{plane} argument of \code{\link{rgl.orthoview}}.}
+
 \item{fov}{field of view in degrees, as used in \code{\link[rgl]{rgl.viewpoint}}}
 
 \item{col}{background color}
+
+\item{light}{logical flag. If \code{TRUE}, the standard light source created by \code{\link[rgl]{open3d}} will be light up the scene. If \code{FALSE}, no light source is added and the user must create custom light sources manually by calling \code{\link[rgl]{light3d}} or \code{\link[rgl]{rgl.light}}.}
 
 \item{xlim}{2-vector specifying the range along the x-axis}
 

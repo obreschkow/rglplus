@@ -4,7 +4,17 @@
 \alias{rgl.ball}
 \title{Plot high-resolution sphere / globe}
 \usage{
-rgl.ball(x = 0, y = 0, z = 0, radius = 1, depth = 4, png = NULL, ...)
+rgl.ball(
+  x = 0,
+  y = 0,
+  z = 0,
+  radius = 1,
+  depth = 5,
+  png = NULL,
+  rotation = NULL,
+  normals = "standard",
+  ...
+)
 }
 \arguments{
 \item{x}{x-coordinate of the center of the sphere}
@@ -15,9 +25,13 @@ rgl.ball(x = 0, y = 0, z = 0, radius = 1, depth = 4, png = NULL, ...)
 
 \item{radius}{radius of the sphere}
 
-\item{depth}{integer (1...7) specifying the number of rectangles (=6*4^depth)}
+\item{depth}{integer (1...8) specifying the number of rectangles (=6*4^depth)}
 
 \item{png}{optional character string specifying the file name of a png-image to be rendered on the sphere. This file must contain the map to be displayed in an equirectangular projection (also known as equidistant cylindrical projection).}
+
+\item{rotation}{optional 3-by-3 or or 4-by-4 rotation matrix applied to the whole globe; only used of \code{png} is specified.}
+
+\item{normals}{character string specifying the way the normal vectors of the surface are internally passed to \code{\link[rgl]{surface3d}}. This argument is available because \code{\link[rgl]{surface3d}} (or rather the underlying routine \code{\link[rgl]{rgl.surface}}) sometimes handles the sign of normal vectors incorrectly, causing light sources to appear in the wrong direction if a rotation matrix is provided. The argument can take three values: "none" does not pass any normal vectors to \code{\link[rgl]{rgl.surface}}, hence avoiding any issues with the direction of light sources, but this can cause glitches at the 180-degree meridian (choose a high depth around 7 in this case); "standard" passes correct normal vectors to \code{\link[rgl]{rgl.surface}}, which can cause wrong lighting for certain rotation matrices; "improved" is similar to "standard", but corrects the lighting errors in most cases.}
 
 \item{...}{additional parameter to refine the material properties (see \code{\link[rgl]{rgl.material}}).}
 }
@@ -26,10 +40,11 @@ Draws a sphere in custom resolution with custom surface image.
 }
 \examples{
 # Show Earth with core
-rgl.new(width=0.5, aspect=1.0, col='black', xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
+rgl.new(width=0.5, aspect=1.0, orientation='yz', light=FALSE, col='black',
+        xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
 rgl.ball(0, 0, 0, 1, png=system.file('earth.png', package='rglplus'), emission='grey', alpha=0.5)
 rgl.ball(0, 0, 0, 0.6, col='red')
-rgl.orthoview('yz', zoom=0.5)
+rgl::rgl.light(60, 30)
 
 }
 \author{
