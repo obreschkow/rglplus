@@ -5,7 +5,7 @@
 #'
 #' @description Generates an MP4-movie of a 3d rgl scene with time-dependent objects and/or a camera path. The routine has been developed and tested for MacOS and it requires on a working installation of ffmpeg.
 #'
-#' @param frame optional function that plots or updates the scene at a given time. This function must have exactly one  argument, which specifies the time of the frame.
+#' @param frame optional function that plots or updates the 3D scene at a given time. This function must have exactly one argument, which specifies the time of the frame.
 #' @param path optional list that specifies the motion of the camera at some discrete times. The list contains the following elements (for more details see \code{\link{rgl.camera}}):\cr\cr
 #' \code{time} = optional n-vector of strictly monotonically increasing discrete times; if not given, the other arguments (potion, direction, up, fov) are assumed equally spaced in time.\cr
 #' \code{position} = n-by-3 matrix of n discrete camera positions at the specified times; can also be a 3-vector specifying a constant position.\cr
@@ -22,7 +22,7 @@
 #' @param quiet logical flag; if true, all console outputs produced by 'ffmpeg' are suppressed
 #' @param separator filename separate of the system ('/' for Mac, Linux, Unix; '\' for Windows)
 #' @param ffmpeg.cmd command used to call ffmpeg form a terminal. Normally, this is just 'ffmpeg'.
-#' @param ffmpeg.opt compression and formatting options used with ffmpeg
+#' @param ffmpeg.opt optional arguments used with ffmpeg, such as compression and formatting options (see \url{https://www.ffmpeg.org/ffmpeg.html}).
 #'
 #' @details
 #' Note that the frame width and height should be divisible by 2 for mp4 video compression to work.\cr
@@ -73,7 +73,8 @@ rgl.makemovie = function(frame=NULL, path=NULL,
                          tmin=NULL, tmax=NULL,
                          nframes=60, fps=60,
                          output.path,output.filename,
-                         keep.frames=F, quiet=T, separator='/',
+                         keep.frames=F,quiet=T,
+                         separator=.Platform$file.sep,
                          ffmpeg.cmd='ffmpeg',
                          ffmpeg.opt='-vcodec libx264 -crf 18 -pix_fmt yuv420p') {
 
@@ -195,7 +196,9 @@ rgl.makemovie = function(frame=NULL, path=NULL,
     cat(sprintf('Write frame %0.6d at time %s.\n',i,signif(t,6)))
 
     # adjust frame
-    if (!is.null(frame)) frame(t)
+    if (!is.null(frame)) {
+      frame(t)
+    }
 
     # adjust camera
     if (!is.null(path)) {

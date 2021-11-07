@@ -15,13 +15,13 @@ rgl.makemovie(
   output.filename,
   keep.frames = F,
   quiet = T,
-  separator = "/",
+  separator = .Platform$file.sep,
   ffmpeg.cmd = "ffmpeg",
   ffmpeg.opt = "-vcodec libx264 -crf 18 -pix_fmt yuv420p"
 )
 }
 \arguments{
-\item{frame}{optional function that plots or updates the scene at a given time. This function must have exactly one  argument, which specifies the time of the frame.}
+\item{frame}{optional function that plots or updates the 3D scene at a given time. This function must have exactly one argument, which specifies the time of the frame.}
 
 \item{path}{optional list that specifies the motion of the camera at some discrete times. The list contains the following elements (for more details see \code{\link{rgl.camera}}):\cr\cr
 \code{time} = optional n-vector of strictly monotonically increasing discrete times; if not given, the other arguments (potion, direction, up, fov) are assumed equally spaced in time.\cr
@@ -50,7 +50,7 @@ rgl.makemovie(
 
 \item{ffmpeg.cmd}{command used to call ffmpeg form a terminal. Normally, this is just 'ffmpeg'.}
 
-\item{ffmpeg.opt}{compression and formatting options used with ffmpeg}
+\item{ffmpeg.opt}{optional arguments used with ffmpeg, such as compression and formatting options (see \url{https://www.ffmpeg.org/ffmpeg.html}).}
 }
 \description{
 Generates an MP4-movie of a 3d rgl scene with time-dependent objects and/or a camera path. The routine has been developed and tested for MacOS and it requires on a working installation of ffmpeg.
