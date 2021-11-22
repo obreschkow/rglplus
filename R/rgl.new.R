@@ -33,7 +33,7 @@ rgl.new = function(width=0.5, aspect=16/9,
                    orientation='xy', fov=30,
                    col='white', light=TRUE,
                    xlim=c(0,1), ylim=c(0,1), zlim=c(0,1),
-                   xlab='', ylab='', zlab='', axes=FALSE,
+                   xlab=NULL, ylab=NULL, zlab=NULL, axes=FALSE,
                    fixed = TRUE, # do not adjust view when plotting objects
                    close.all = TRUE, ...) {
 
@@ -60,7 +60,7 @@ rgl.new = function(width=0.5, aspect=16/9,
 
   # set scales and axes
   rgl::decorate3d(xlim=xlim, ylim=ylim, zlim=zlim, axes=axes,
-                  xlab=xlab, ylab=ylab, zlab=zlab)
+                  xlab=xlab, ylab=ylab, zlab=zlab, box=FALSE)
   rgl::par3d(ignoreExtent=fixed)
 
   # reset rotation of scene

@@ -99,7 +99,15 @@ rgl.makemovie = function(frame=NULL, path=NULL,
           if ((iarg<=3 & length(arg)==3) | (iarg==4 & length(arg)==1)) {
 
             # make constant function
-            f = function(t) arg
+            if (iarg==1) {
+              f = function(t) path$position
+            } else if (iarg==2) {
+              f = function(t) path$direction
+            } else if (iarg==3) {
+              f = function(t) path$up
+            } else if (iarg==4) {
+              f = function(t) path$fov
+            }
 
           } else if ((iarg<=3 & length(dim(arg))==2) | (iarg==4 & length(arg)>1)) {
 

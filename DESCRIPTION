@@ -1,7 +1,7 @@
 Package: rglplus
 Type: Package
 Title: Extension to the rgl 3D visualisation package
-Version: 0.3
+Version: 0.31
 Author: Danail Obreschkow
 Maintainer: The package maintainer <danail.obreschkow@gmail.com>
 Description: Various routines for 3D plotting in conjunction with the rgl package.
