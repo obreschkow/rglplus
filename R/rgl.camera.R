@@ -45,7 +45,11 @@ rgl.camera = function(position=10, direction=NULL, up=0, fov=0) {
     } else {
       stop('unknown up type')
     }
-    rgl::rgl.viewpoint(userMatrix=um,fov=fov)
+    if (is.null(fov)) {
+      rgl::rgl.viewpoint(userMatrix=um)
+    } else {
+      rgl::rgl.viewpoint(userMatrix=um,fov=fov)
+    }
   } else {
     if (!is.null(fov)) {
       um = rgl::par3d()$userMatrix

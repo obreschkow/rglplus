@@ -7,8 +7,8 @@
 rgl.makemovie(
   frame = NULL,
   path = NULL,
-  tmin = NULL,
-  tmax = NULL,
+  tmin = 0,
+  tmax = 1,
   nframes = 60,
   fps = 60,
   output.path,
@@ -24,15 +24,15 @@ rgl.makemovie(
 \item{frame}{optional function that plots or updates the 3D scene at a given time. This function must have exactly one argument, which specifies the time of the frame.}
 
 \item{path}{optional list that specifies the motion of the camera at some discrete times. The list contains the following elements (for more details see \code{\link{rgl.camera}}):\cr\cr
-\code{time} = optional n-vector of strictly monotonically increasing discrete times; if not given, the other arguments (potion, direction, up, fov) are assumed equally spaced in time.\cr
-\code{position} = n-by-3 matrix of n discrete camera positions at the specified times; can also be a 3-vector specifying a constant position.\cr
-\code{direction} = n-by-3 matrix of n discrete camera directions at the specified times; can also be a 3-vector specifying a constant direction. If not given, the tangent vector of the path is used as direction.\cr
-\code{up} = n-by-3 matrix of n discrete up-directions of the camera; can also be a 3-vector specifying a constant up-direction. If not given, the (outward facing) normal vector of the path is used as up-direction.\cr
-\code{fov} = n-vector of field of view (in degrees) at the specified times; an also be a single number specifying a constant field of view.\cr\cr}
+\code{time} = optional n-vector of strictly monotonically increasing discrete times, required if and only if one of the following four arguments (position, direction, up, fov) are provided as matrices/vectors. If not given, equally spaced in times between tmin and tmax are assumed.\cr
+\code{position} = optional argument specifying the camera position along the path. This argument must be one of three types: (1) A 3-element vector specifies a fixed camera position for the whole movie. (2) A n-by-3 matrix specifies n discrete camera positions at the exact times given in the \code{time} vector (see above). The code automatically generates a smooth function going through these n points. (3) A function f(t) of a single time variable t, which returns a 3-element vector, specifies the exact position at that time.\cr
+\code{direction} = optional argument specifying the direction of the camera's optical axis. This argument can be of the same three types as the \code{position} argument.\cr
+\code{up} = optional argument specifying the camera's up-direction. This argument can be of the same three types as the \code{position} argument.\cr
+\code{fov} = optional argument specifying the field-of-view (FoV) in degrees. Similarly to the above arguments, this can be either a single number (fixed FoV), a n-element vector (specifying the Fov at the n discrete times), or a scalar function (specifying the FoV at any time t).\cr\cr}
 
-\item{tmin}{time of first frame in the movie. Should normally not be smaller than the first time in path$time. If not specified, the first value in path$time is adopted.}
+\item{tmin}{physical time of first frame in the movie.}
 
-\item{tmax}{time of last frame in the movie. Should normally not be larger than the last time in path$time. If not specified, the last value in path$time is adopted.}
+\item{tmax}{physical time of last frame in the movie.}
 
 \item{nframes}{number of frames in the movie. The time variable is sampled evenly between \code{tmin} and \code{tmax}.}
 
@@ -84,11 +84,10 @@ frame = function(t) {
 }
 
 # Make path
-alpha = seq(0,2*pi,length=37)
-path = list(position=cbind(1.1*cos(alpha),1.1*sin(alpha),0),
-            direction=cbind(-1.5*sin(alpha)-cos(alpha),1.5*cos(alpha)-sin(alpha),0),
-            up=cbind(cos(alpha),sin(alpha),sin(alpha)/2),
-            fov=30)
+path = list(position = function(t) c(1.1*cos(t),1.1*sin(t),0),
+direction = function(t) c(-1.5*sin(t)-cos(t),1.5*cos(t)-sin(t),0),
+up = function(t) c(cos(t),sin(t),sin(t)/2),
+fov = 30)
 
 # Produce movie
 \dontrun{
