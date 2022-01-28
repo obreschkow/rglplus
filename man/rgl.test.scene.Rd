@@ -10,7 +10,9 @@ rgl.test.scene()
 Draws a cubic 3D test image with three Cartesian axes, a sphere and three light sources with RGB colors.
 }
 \examples{
+\dontrun{
 rgl.test.scene()
+}
 
 }
 \author{

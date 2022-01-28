@@ -2,7 +2,7 @@
 % Please edit documentation in R/rgl.ball.R
 \name{rgl.ball}
 \alias{rgl.ball}
-\title{Plot high-resolution sphere / globe}
+\title{Plot high-resolution sphere or globe}
 \usage{
 rgl.ball(
   x = 0,
@@ -40,11 +40,13 @@ Draws a sphere in custom resolution with custom surface image.
 }
 \examples{
 # Show Earth with core
+\dontrun{
 rgl.new(width=0.5, aspect=1.0, orientation='yz', light=FALSE, col='black',
         xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
 rgl.ball(0, 0, 0, 1, png=system.file('earth.png', package='rglplus'), emission='grey', alpha=0.5)
 rgl.ball(0, 0, 0, 0.6, col='red')
 rgl::rgl.light(60, 30)
+}
 
 }
 \author{

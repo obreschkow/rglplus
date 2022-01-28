@@ -7,7 +7,9 @@
 #' @author Danail Obreschkow
 #'
 #' @examples
+#' \dontrun{
 #' rgl.test.scene()
+#' }
 #'
 #' @export rgl.test.scene
 

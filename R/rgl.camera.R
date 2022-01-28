@@ -1,6 +1,6 @@
 #' @title Place observer
 #'
-#' @description Set the position, orientation and field-of-view of the observer (= virtual camera).
+#' @description Set the position, orientation and field-of-view of the observer
 #'
 #' @importFrom rgl par3d rotationMatrix rgl.viewpoint translationMatrix observer3d
 #'
@@ -12,9 +12,11 @@
 #' @author Danail Obreschkow
 #'
 #' @examples
+#' \dontrun{
 #' rgl.test.scene()
 #' for (a in seq(0,pi/2,length=200)) {
 #' rgl.camera(position=3, direction=c(-cos(a),0,-sin(a)), up=c(-sin(a),0,cos(a)), fov=60)
+#' }
 #' }
 #'
 #' @export rgl.camera
