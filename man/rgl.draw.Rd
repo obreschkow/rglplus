@@ -6,6 +6,9 @@
 \usage{
 rgl.draw()
 }
+\value{
+None
+}
 \description{
 Updates screen display after this was stopped using the function \code{\link{rgl.hold}}. This is identical to calling \code{par3d(skipRedraw=FALSE)}.
 }

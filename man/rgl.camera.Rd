@@ -15,14 +15,17 @@ rgl.camera(position = 10, direction = NULL, up = 0, fov = 0)
 
 \item{fov}{field of view in degrees, as used in \code{\link[rgl]{rgl.viewpoint}}. This is roughly the field-of-view seen along the shortest axis of the window.}
 }
+\value{
+None
+}
 \description{
 Set the position, orientation and field-of-view of the observer
 }
 \examples{
-\dontrun{
+\donttest{
 rgl.test.scene()
 for (a in seq(0,pi/2,length=200)) {
-rgl.camera(position=3, direction=c(-cos(a),0,-sin(a)), up=c(-sin(a),0,cos(a)), fov=60)
+  rgl.camera(position=3, direction=c(-cos(a),0,-sin(a)), up=c(-sin(a),0,cos(a)), fov=60)
 }
 }
 

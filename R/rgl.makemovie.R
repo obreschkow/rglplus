@@ -28,13 +28,15 @@
 #' Note that the frame width and height should be divisible by 2 for mp4 video compression to work.\cr
 #' To accelerate the movie generation, it is possible to suppress the screen update by calling \code{\link{rgl.hold}} before calling \code{rgl.makemovie}.
 #'
+#' @return None
+#'
 #' @author Danail Obreschkow
 #'
 #' @examples
 #'
 #' ## Example: Movie of spaceship flying around the Earth chasing a UFO
 #'
-#' \dontrun{
+#' \donttest{
 #' # Produce basic scene
 #' rgl.new(width=720, aspect=4/3, col='black', xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
 #' rgl::clear3d(type = "lights")
@@ -62,8 +64,10 @@
 #' fov = 30)
 #'
 #' # Produce movie
+#' \dontrun{
 #' rgl.makemovie(frame=frame, path=path, tmin=0, tmax=2*pi, output.path='~/testmovie',
 #'               output.filename = 'movie.mp4', ffmpeg.cmd = 'ffmpeg', nframes=600)
+#' }
 #' }
 #'
 #' @export
@@ -72,7 +76,7 @@ rgl.makemovie = function(frame=NULL, path=NULL,
                          tmin=0, tmax=1,
                          nframes=60, fps=60,
                          output.path,output.filename,
-                         keep.frames=F,quiet=T,
+                         keep.frames=FALSE,quiet=TRUE,
                          separator=.Platform$file.sep,
                          ffmpeg.cmd='ffmpeg',
                          ffmpeg.opt='-vcodec libx264 -crf 18 -pix_fmt yuv420p') {

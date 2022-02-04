@@ -56,11 +56,14 @@ rgl.new(
 
 \item{...}{additional arguments for \code{\link[rgl]{rgl.viewpoint}}.}
 }
+\value{
+None
+}
 \description{
 Calls \code{\link[rgl]{open3d}} and various additional functions to initialize a 3d plot.
 }
 \examples{
-\dontrun{
+\donttest{
 rgl.new(width=0.3, aspect=1, col='grey')
 rgl::rgl.spheres(array(runif(30),c(10,3)), radius=0.1, col=rainbow(10))
 }

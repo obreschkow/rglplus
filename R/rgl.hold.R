@@ -4,6 +4,8 @@
 #'
 #' @importFrom rgl par3d
 #'
+#' @return None
+#'
 #' @author Danail Obreschkow
 #'
 #' @seealso \code{\link{rgl.draw}}

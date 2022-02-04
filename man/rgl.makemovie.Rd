@@ -13,8 +13,8 @@ rgl.makemovie(
   fps = 60,
   output.path,
   output.filename,
-  keep.frames = F,
-  quiet = T,
+  keep.frames = FALSE,
+  quiet = TRUE,
   separator = .Platform$file.sep,
   ffmpeg.cmd = "ffmpeg",
   ffmpeg.opt = "-vcodec libx264 -crf 18 -pix_fmt yuv420p"
@@ -52,6 +52,9 @@ rgl.makemovie(
 
 \item{ffmpeg.opt}{optional arguments used with ffmpeg, such as compression and formatting options (see \url{https://www.ffmpeg.org/ffmpeg.html}).}
 }
+\value{
+None
+}
 \description{
 Generates an MP4-movie of a 3d rgl scene with time-dependent objects and/or a camera path. The routine has been developed and tested for MacOS and it requires on a working installation of ffmpeg.
 }
@@ -63,7 +66,7 @@ To accelerate the movie generation, it is possible to suppress the screen update
 
 ## Example: Movie of spaceship flying around the Earth chasing a UFO
 
-\dontrun{
+\donttest{
 # Produce basic scene
 rgl.new(width=720, aspect=4/3, col='black', xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
 rgl::clear3d(type = "lights")
@@ -91,8 +94,10 @@ up = function(t) c(cos(t),sin(t),sin(t)/2),
 fov = 30)
 
 # Produce movie
+\dontrun{
 rgl.makemovie(frame=frame, path=path, tmin=0, tmax=2*pi, output.path='~/testmovie',
               output.filename = 'movie.mp4', ffmpeg.cmd = 'ffmpeg', nframes=600)
+}
 }
 
 }

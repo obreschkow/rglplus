@@ -4,10 +4,12 @@
 #'
 #' @importFrom rgl rgl.clear rgl.light lines3d points3d text3d
 #'
+#' @return None
+#'
 #' @author Danail Obreschkow
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' rgl.test.scene()
 #' }
 #'
@@ -20,9 +22,9 @@ rgl.test.scene = function() {
 
   # add light sources
   rgl::rgl.clear(type="lights")
-  rgl::rgl.light(0, 90, specular = 'green', diffuse='green', viewpoint.rel = F)
-  rgl::rgl.light(90, 0, specular = 'red', diffuse='red', viewpoint.rel = F)
-  rgl::rgl.light(0, 0, specular = 'blue', diffuse='blue', viewpoint.rel = F)
+  rgl::rgl.light(0, 90, specular = 'green', diffuse='green', viewpoint.rel = FALSE)
+  rgl::rgl.light(90, 0, specular = 'red', diffuse='red', viewpoint.rel = FALSE)
+  rgl::rgl.light(0, 0, specular = 'blue', diffuse='blue', viewpoint.rel = FALSE)
 
   # draw axes
   rgl::lines3d(c(0,1),c(0,0),c(0,0),col='#aa0000',lwd=2)

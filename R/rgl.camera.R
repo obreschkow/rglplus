@@ -9,13 +9,15 @@
 #' @param up (only used if \code{direction} is specified) single number or 3-vector, specifying the rotation of the camera around the optical axis (as defined with the argument \code{direction}). If a single number is provided, it is normally interpreted as the angle in degrees between the up-direction of the 2d camera image and the projected z-axis of the 3d scene. To avoid the singularity that occurs if the optical axis lies very close to the z-axis, "\code{up}" is, in this case, interpreted as the angle between the up-direction and the y-axis. If a 3-vector is provided, it is interpreted such that its projection points upwards on the projected image seen by the camera. Thus, this 3-vector must *not* be parallel to the direction.
 #' @param fov field of view in degrees, as used in \code{\link[rgl]{rgl.viewpoint}}. This is roughly the field-of-view seen along the shortest axis of the window.
 #'
+#' @return None
+#'
 #' @author Danail Obreschkow
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' rgl.test.scene()
 #' for (a in seq(0,pi/2,length=200)) {
-#' rgl.camera(position=3, direction=c(-cos(a),0,-sin(a)), up=c(-sin(a),0,cos(a)), fov=60)
+#'   rgl.camera(position=3, direction=c(-cos(a),0,-sin(a)), up=c(-sin(a),0,cos(a)), fov=60)
 #' }
 #' }
 #'

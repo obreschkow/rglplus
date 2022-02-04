@@ -4,6 +4,8 @@
 #'
 #' @importFrom rgl rgl.cur rgl.close
 #'
+#' @return None
+#'
 #' @author Danail Obreschkow
 #'
 #' @export rgl.close.all

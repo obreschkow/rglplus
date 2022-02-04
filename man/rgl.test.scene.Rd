@@ -6,11 +6,14 @@
 \usage{
 rgl.test.scene()
 }
+\value{
+None
+}
 \description{
 Draws a cubic 3D test image with three Cartesian axes, a sphere and three light sources with RGB colors.
 }
 \examples{
-\dontrun{
+\donttest{
 rgl.test.scene()
 }
 
