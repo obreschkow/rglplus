@@ -3,9 +3,9 @@
 \docType{package}
 \name{rglplus}
 \alias{rglplus}
-\title{Extension of the rgl 3D Visualisation Package}
+\title{Extension of the 'rgl' 3D Visualization Package}
 \description{
-3D plotting routines that facilitate the use of the "rgl" package and extend its functionality. For example, the routines allow the user to directly control of the camera position & orientation, as well as to generate 3D movies with a moving observer.
+Provides 3D plotting routines that facilitate the use of the 'rgl' package and extend its functionality. For example, the routines allow the user to directly control of the camera position & orientation, as well as to generate 3D movies with a moving observer.
 }
 \author{
 Danail Obreschkow

@@ -1,10 +1,10 @@
 Package: rglplus
 Type: Package
-Title: Extension of the rgl 3D Visualisation Package
+Title: Extension of 'the' rgl 3D Visualization Package
 Version: 1.0
 Author: Danail Obreschkow
 Maintainer: Danail Obreschkow <danail.obreschkow@gmail.com>
-Description: 3D plotting routines that facilitate the use of the rgl package and extend its functionality. For example, the routines allow the user to directly control of the camera position & orientation, as well as to generate 3D movies with a moving observer.
+Description: Provides 3D plotting routines that facilitate the use of the 'rgl' package and extend its functionality. For example, the routines allow the user to directly control of the camera position & orientation, as well as to generate 3D movies with a moving observer.
 Imports:
     rgl,
     stats
