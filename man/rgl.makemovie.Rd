@@ -66,7 +66,6 @@ To accelerate the movie generation, it is possible to suppress the screen update
 
 ## Example: Movie of spaceship flying around the Earth chasing a UFO
 
-\donttest{
 # Produce basic scene
 rgl.new(width=720, aspect=4/3, col='black', xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
 rgl::clear3d(type = "lights")
@@ -97,7 +96,6 @@ fov = 30)
 \dontrun{
 rgl.makemovie(frame=frame, path=path, tmin=0, tmax=2*pi, output.path='~/testmovie',
               output.filename = 'movie.mp4', ffmpeg.cmd = 'ffmpeg', nframes=600)
-}
 }
 
 }
