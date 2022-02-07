@@ -37,7 +37,7 @@
 #' ## Example: Movie of spaceship flying around the Earth chasing a UFO
 #'
 #' # Produce basic scene
-#' rgl.new(width=720, aspect=4/3, col='black', xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
+#' rgl.new(aspect=4/3, col='black', xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
 #' rgl::clear3d(type = "lights")
 #' rgl::rgl.light(80,30,viewpoint.rel = FALSE)
 #' rgl.ball(0, 0, 0, 1, png=system.file('earth.png', package='rglplus'), depth=7, emission='#444466')
