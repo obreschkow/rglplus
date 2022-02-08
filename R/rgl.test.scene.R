@@ -32,7 +32,7 @@ rgl.test.scene = function(center=c(0,0,0)) {
   rgl::lines3d(center[1]+c(0,0),center[2]+c(0,0),center[3]+c(-1,1),col='#0000aa',lwd=2)
 
   # draw sphere
-  rgl.ball(center[1], center[2], center[3], 0.5, col='grey', depth=5, alpha=0.8)
+  rgl.ball(center[1], center[2], center[3], 0.5, col='grey', depth=4, alpha=0.8)
 
   # add coordinates
   rgl::axis3d('x',at=c(-1,-0.5,0.5,1)+center[1],pos=center)
