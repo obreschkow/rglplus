@@ -26,10 +26,8 @@
 #' @author Danail Obreschkow
 #'
 #' @examples
-#' \donttest{
 #' rgl.new(width=0.3, aspect=1, col='grey')
 #' rgl::rgl.spheres(array(runif(30),c(10,3)), radius=0.1, col=rainbow(10))
-#' }
 #'
 #' @export rgl.new
 

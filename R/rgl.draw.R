@@ -8,7 +8,7 @@
 #'
 #' @author Danail Obreschkow
 #'
-#' @seealso \code{\link{rgl.draw}}
+#' @seealso \code{\link{rgl.hold}}
 #'
 #' @export rgl.draw
 

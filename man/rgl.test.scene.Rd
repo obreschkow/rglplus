@@ -4,18 +4,19 @@
 \alias{rgl.test.scene}
 \title{Plot 3D test image}
 \usage{
-rgl.test.scene()
+rgl.test.scene(center = c(0, 0, 0))
+}
+\arguments{
+\item{center}{3-vector specifying the centre of the 3D plot.}
 }
 \value{
 None
 }
 \description{
-Draws a cubic 3D test image with three Cartesian axes, a sphere and three light sources with RGB colors.
+Draws a c3D test image with three Cartesian axes, a sphere of radius 0.5 and three light sources with RGB colors.
 }
 \examples{
-\donttest{
 rgl.test.scene()
-}
 
 }
 \author{

@@ -4,14 +4,14 @@
 \alias{rgl.camera}
 \title{Place observer}
 \usage{
-rgl.camera(position = 10, direction = NULL, up = 0, fov = 0)
+rgl.camera(position = NULL, direction = NULL, up = NULL, fov = 0)
 }
 \arguments{
-\item{position}{either a single number, a 3-vector or NULL. A single number is interpreted as the distance between the observer and the center of the scene. The observer is placed at distance along the current optical axis or that specified by the optional argument \code{direction}. A 3-vector is interpreted as the actual position of the observer in the coordinates of the 3D plot. If \code{position=NULL}, the position is adjusted automatically following the rules of \code{\link[rgl]{rgl.viewpoint}}.}
+\item{position}{either a 3-vector, a single number or NULL. A vector directly specifies the location of camera. A single number specifies the distances of the camera along the z-axis, relative to the center of the scene (= center of the bounding box returned by \code{\link[rgl]{par3d}}). If no positions is given, then the camera is placed automatically.}
 
-\item{direction}{optional 3-vector specifying the direction in which the observer is looking, that is the optical axis of the virtual camera. The norm of the vector is irrelevant, but has to be non-zero. If not given, the camera is pointed at the center of the scene bounding box returned by \code{\link[rgl]{par3d}}.}
+\item{direction}{optional 3-vector specifying the direction in which the observer is looking, that is the optical axis of the virtual camera. The norm of the vector is irrelevant, but has to be non-zero. If not given, the camera is pointed at the center of the scene.}
 
-\item{up}{(only used if \code{direction} is specified) single number or 3-vector, specifying the rotation of the camera around the optical axis (as defined with the argument \code{direction}). If a single number is provided, it is normally interpreted as the angle in degrees between the up-direction of the 2d camera image and the projected z-axis of the 3d scene. To avoid the singularity that occurs if the optical axis lies very close to the z-axis, "\code{up}" is, in this case, interpreted as the angle between the up-direction and the y-axis. If a 3-vector is provided, it is interpreted such that its projection points upwards on the projected image seen by the camera. Thus, this 3-vector must *not* be parallel to the direction.}
+\item{up}{optional single number or 3-vector, specifying the rotation of the camera around the optical axis (as defined with the argument direction). If a single number is provided, it is normally interpreted as the angle in degrees between the up-direction of the 2d camera image and the projected z-axis of the 3d scene. To avoid the singularity that occurs if the optical axis lies very close to the z-axis, "up" is, in this case, interpreted as the angle between the up-direction and the y-axis. If a 3-vector is provided, it is interpreted such that its projection points upwards on the projected image seen by the camera. Thus, this 3-vector must *not* be parallel to the direction.}
 
 \item{fov}{field of view in degrees, as used in \code{\link[rgl]{rgl.viewpoint}}. This is roughly the field-of-view seen along the shortest axis of the window.}
 }
@@ -22,12 +22,8 @@ None
 Set the position, orientation and field-of-view of the observer
 }
 \examples{
-\donttest{
-rgl.test.scene()
-for (a in seq(0,pi/2,length=200)) {
-  rgl.camera(position=3, direction=c(-cos(a),0,-sin(a)), up=c(-sin(a),0,cos(a)), fov=60)
-}
-}
+rgl.test.scene(c(3,4,5))
+rgl.camera(c(5,6,7), -c(1,1,1), up=30, fov=0)
 
 }
 \author{

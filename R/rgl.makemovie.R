@@ -34,37 +34,33 @@
 #'
 #' @examples
 #'
-#' ## Example: Movie of spaceship flying around the Earth chasing a UFO
-#'
-#' # Produce basic scene
-#' rgl.new(aspect=4/3, col='black', xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
+# Produce basic scene
+#' rgl.new(aspect=4/3, col='black', xlim=c(-4,4), ylim=c(-4,4), zlim=c(-4,4))
 #' rgl::clear3d(type = "lights")
-#' rgl::rgl.light(80,30,viewpoint.rel = FALSE)
-#' rgl.ball(0, 0, 0, 1, png=system.file('earth.png', package='rglplus'), depth=7, emission='#444466')
+#' rgl::rgl.light(30,60,viewpoint.rel = FALSE)
 #'
-#' # Make function to update frames
-#' ptlast = NULL
+#' # Make frame function
 #' frame = function(t) {
+#'   # t = time in seconds
 #'   rgl.hold()
-#'   pt = c(1.01*cos(t+0.2),1.01*sin(t+0.2),sin(5*t)*0.02)
-#'   if (!is.null(ptlast)) {
-#'     rgl::pop3d()
-#'     rgl::lines3d(rbind(ptlast,pt), col='red', lwd=3)
-#'   }
-#'   rgl.ball(pt[1], pt[2], pt[3], 0.003, col='orange', emission='#885500')
-#'   ptlast <<- pt
+#'   if (t>0) {for (i in seq(3)) rgl::pop3d()}
+#'   rgl.ball(0, 0, 0, 1, normals='improved', depth=6, png=system.file('earth.png', package='rglplus'),
+#'            emission='#444466', rotation=rgl::rotationMatrix(t/86400*2*pi,0,0,1))
+#'   alpha = seq(0,2*pi,length=360)+2*pi*t/43200
+#'   alpha = c(alpha[1],rep(alpha[2:359],each=2),alpha[360])
+#'   y = 3.168*cos(alpha)
+#'   z = 3.168*sin(alpha)
+#'   rgl.ball(0,y[1],z[1],0.05,col='red',emission='#aa0000')
+#'   rgl::segments3d(0,y,z,col='red',alpha=seq(0,1,length=720))
 #'   rgl.draw()
 #' }
 #'
 #' # Make path
-#' path = list(position = function(t) c(1.1*cos(t),1.1*sin(t),0),
-#' direction = function(t) c(-1.5*sin(t)-cos(t),1.5*cos(t)-sin(t),0),
-#' up = function(t) c(cos(t),sin(t),sin(t)/2),
-#' fov = 30)
+#' path = list(position=c(10,10,0), up=c(0,0.5,1), fov = function(t) 40-t/8640)
 #'
 #' # Produce movie
 #' \dontrun{
-#' rgl.makemovie(frame=frame, path=path, tmin=0, tmax=2*pi, output.path='~/testmovie',
+#' rgl.makemovie(frame=frame, path=path, tmin=0, tmax=86400, output.path='~/testmovie',
 #'               output.filename = 'movie.mp4', ffmpeg.cmd = 'ffmpeg', nframes=600)
 #' }
 #'

@@ -13,7 +13,7 @@ None
 Updates screen display after this was stopped using the function \code{\link{rgl.hold}}. This is identical to calling \code{par3d(skipRedraw=FALSE)}.
 }
 \seealso{
-\code{\link{rgl.draw}}
+\code{\link{rgl.hold}}
 }
 \author{
 Danail Obreschkow
