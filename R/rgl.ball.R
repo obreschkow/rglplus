@@ -2,7 +2,7 @@
 #'
 #' @description Draws a sphere in custom resolution with custom surface image.
 #'
-#' @importFrom rgl cube3d subdivision3d asHomogeneous2 asEuclidean2 addNormals shade3d surface3d rgl.light
+#' @importFrom rgl open3d cube3d subdivision3d asHomogeneous2 asEuclidean2 addNormals shade3d surface3d rgl.light
 #'
 #' @param x x-coordinate of the center of the sphere
 #' @param y y-coordinate of the center of the sphere
@@ -20,11 +20,9 @@
 #'
 #' @examples
 #' # Show Earth with core
-#' rgl.new(width=0.5, aspect=1.0, orientation='yz', light=FALSE, col='black',
-#'         xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
-#' rgl.ball(0, 0, 0, 1, png=system.file('earth.png', package='rglplus'), emission='grey', alpha=0.5)
+#' rgl::open3d()
+#' rgl.ball(0, 0, 0, 1, png=system.file('earth.png', package='rglplus'), emission='grey', alpha=0.6)
 #' rgl.ball(0, 0, 0, 0.6, col='red')
-#' rgl::rgl.light(60, 30)
 #'
 #' @export rgl.ball
 

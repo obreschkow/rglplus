@@ -2,7 +2,7 @@
 #'
 #' @description Set the position, orientation and field-of-view of the observer
 #'
-#' @importFrom rgl par3d rotationMatrix rgl.viewpoint translationMatrix observer3d
+#' @importFrom rgl open3d cylinder3d shade3d addNormals subdivision3d par3d rotationMatrix rgl.viewpoint translationMatrix observer3d
 #'
 #' @param position either a 3-vector, a single number or NULL. A vector directly specifies the location of camera. A single number specifies the distances of the camera along the z-axis, relative to the center of the scene (= center of the bounding box returned by \code{\link[rgl]{par3d}}). If no positions is given, then the camera is placed automatically.
 #' @param direction optional 3-vector specifying the direction in which the observer is looking, that is the optical axis of the virtual camera. The norm of the vector is irrelevant, but has to be non-zero. If not given, the camera is pointed at the center of the scene.
@@ -14,8 +14,23 @@
 #' @author Danail Obreschkow
 #'
 #' @examples
-#' rgl.test.scene(c(3,4,5))
-#' rgl.camera(c(5,6,7), -c(1,1,1), up=30, fov=0)
+#' # Draw knot
+#' rgl::open3d()
+#' a = seq(0,2*pi,len=25)
+#' knot = rgl::cylinder3d(center=cbind(sin(a)+2*sin(2*a), 2*sin(3*a), cos(a)-2*cos(2*a)),
+#'                        e1 = cbind(cos(a)+4*cos(2*a), 6*cos(3*a), sin(a)+4*sin(2*a)),
+#'                        radius = 0.8, closed = TRUE)
+#' rgl::shade3d(rgl::addNormals(rgl::subdivision3d(knot,depth=2)), col="purple")
+#'
+#' # Place static camera
+#' rgl.camera(c(10,0,0),fov=50)
+#'
+#' # Animate camera
+#' \dontrun{
+#'   for(alpha in seq(0,2*pi,len=100)) {
+#'     rgl.camera(10*c(cos(alpha),sin(alpha),0),fov=50)
+#'   }
+#' }
 #'
 #' @export rgl.camera
 

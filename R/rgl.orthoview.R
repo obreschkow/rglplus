@@ -2,7 +2,7 @@
 #'
 #' @description Display orthogonal projection on principal Cartesian planes, with scene centre in the image centre.
 #'
-#' @importFrom rgl identityMatrix rotationMatrix rgl.viewpoint
+#' @importFrom rgl plot3d box3d identityMatrix rotationMatrix rgl.viewpoint
 #'
 #' @param plane character string, which can be either of `xy`, `yx`, `yz`, `zy`, `zx`, `xz`, where the  first letter is the axis displayed from left to right and the second letter is the axis displayed from bottom to top. The third axis points either out of the screen or into the screen following the right-hand convention.
 #' @param fov field of view in degrees, as used in \code{\link[rgl]{rgl.viewpoint}}.
@@ -13,9 +13,10 @@
 #' @author Danail Obreschkow
 #'
 #' @examples
-#' rgl.new(width=0.5, aspect=1.0, col='black', xlim=c(-1,1), ylim=c(-1,1), zlim=c(-1,1))
-#' rgl.ball(0, 0, 0, 1.4, png=system.file('earth.png', package='rglplus'), specular='#333333')
-#' rgl.orthoview('yz', fov=20)
+#' rgl::plot3d(array(runif(60),c(20,3)), col=rainbow(20), axes=FALSE,
+#'             xlim=c(0,1), ylim=c(0,1), zlim=c(0,1), xlab='', ylab='', zlab='')
+#' rgl::box3d()
+#' rgl.orthoview('xy', fov=20)
 #'
 #' @seealso \code{\link{rgl.camera}}
 #'

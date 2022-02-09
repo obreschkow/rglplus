@@ -22,8 +22,23 @@ None
 Set the position, orientation and field-of-view of the observer
 }
 \examples{
-rgl.test.scene(c(3,4,5))
-rgl.camera(c(5,6,7), -c(1,1,1), up=30, fov=0)
+# Draw knot
+rgl::open3d()
+a = seq(0,2*pi,len=25)
+knot = rgl::cylinder3d(center=cbind(sin(a)+2*sin(2*a), 2*sin(3*a), cos(a)-2*cos(2*a)),
+                       e1 = cbind(cos(a)+4*cos(2*a), 6*cos(3*a), sin(a)+4*sin(2*a)),
+                       radius = 0.8, closed = TRUE)
+rgl::shade3d(rgl::addNormals(rgl::subdivision3d(knot,depth=2)), col="purple")
+
+# Place static camera
+rgl.camera(c(10,0,0),fov=50)
+
+# Animate camera
+\dontrun{
+  for(alpha in seq(0,2*pi,len=100)) {
+    rgl.camera(10*c(cos(alpha),sin(alpha),0),fov=50)
+  }
+}
 
 }
 \author{

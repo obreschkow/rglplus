@@ -25,10 +25,6 @@
 #'
 #' @author Danail Obreschkow
 #'
-#' @examples
-#' rgl.new(width=0.3, aspect=1, col='grey')
-#' rgl::rgl.spheres(array(runif(30),c(10,3)), radius=0.1, col=rainbow(10))
-#'
 #' @export rgl.new
 
 rgl.new = function(width=0.5, aspect=16/9,
@@ -53,8 +49,8 @@ rgl.new = function(width=0.5, aspect=16/9,
     height = round(width/aspect)
     rgl::open3d(windowRect = c(0, 0, width, height))
     rgl::par3d(skipRedraw=TRUE)
-    if (rgl::par3d()$viewport['width']!=width) stop('requested width too large for screen')
-    if (rgl::par3d()$viewport['height']!=height) stop('requested height too large for screen')
+    if (rgl::par3d()$viewport['width']!=width) stop('requested width too low or too large for screen')
+    if (rgl::par3d()$viewport['height']!=height) stop('requested height too low or too large for screen')
   }
 
   # set light source

@@ -35,9 +35,11 @@
 #' @examples
 #'
 # Produce basic scene
+#' \donttest{
 #' rgl.new(aspect=4/3, col='black', xlim=c(-4,4), ylim=c(-4,4), zlim=c(-4,4))
 #' rgl::clear3d(type = "lights")
 #' rgl::rgl.light(30,60,viewpoint.rel = FALSE)
+#' }
 #'
 #' # Make frame function
 #' frame = function(t) {

@@ -3,6 +3,7 @@
 #' @description Draws a c3D test image with three Cartesian axes, a sphere of radius 0.5 and three light sources with RGB colors.
 #'
 #' @param center 3-vector specifying the centre of the 3D plot.
+#' @param width either an integer (>1) specifying the number of pixels in the horizontal direction, or a real value (>0 and <=1) specifying the fraction of the available pixels. If the selected aspect ratio causes the number of vertical pixels to exceed the available number, the width is reduced as much as necessary.
 #'
 #' @importFrom rgl rgl.clear rgl.light lines3d points3d text3d axis3d
 #'
@@ -10,15 +11,12 @@
 #'
 #' @author Danail Obreschkow
 #'
-#' @examples
-#' rgl.test.scene()
-#'
 #' @export rgl.test.scene
 
-rgl.test.scene = function(center=c(0,0,0)) {
+rgl.test.scene = function(center=c(0,0,0), width=0.5) {
 
   # open new plot
-  rgl.new(xlim=center[1]+c(-1,1), ylim=center[2]+c(-1,1), zlim=center[3]+c(-1,1), width=0.5, aspect=1, fov=0)
+  rgl.new(xlim=center[1]+c(-1,1), ylim=center[2]+c(-1,1), zlim=center[3]+c(-1,1), width=width, aspect=1, fov=0)
 
   # add light sources
   rgl::rgl.clear(type="lights")
