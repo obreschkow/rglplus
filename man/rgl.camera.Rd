@@ -13,7 +13,7 @@ rgl.camera(position = NULL, direction = NULL, up = NULL, fov = 0)
 
 \item{up}{optional single number or 3-vector, specifying the rotation of the camera around the optical axis (as defined with the argument direction). If a single number is provided, it is normally interpreted as the angle in degrees between the up-direction of the 2d camera image and the projected z-axis of the 3d scene. To avoid the singularity that occurs if the optical axis lies very close to the z-axis, "up" is, in this case, interpreted as the angle between the up-direction and the y-axis. If a 3-vector is provided, it is interpreted such that its projection points upwards on the projected image seen by the camera. Thus, this 3-vector must *not* be parallel to the direction.}
 
-\item{fov}{field of view in degrees, as used in \code{\link[rgl]{rgl.viewpoint}}. This is roughly the field-of-view seen along the shortest axis of the window.}
+\item{fov}{field of view in degrees, as used in \code{\link[rgl]{view3d}}. This is roughly the field-of-view seen along the shortest axis of the window.}
 }
 \value{
 None

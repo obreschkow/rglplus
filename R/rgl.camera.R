@@ -2,12 +2,12 @@
 #'
 #' @description Set the position, orientation and field-of-view of the observer
 #'
-#' @importFrom rgl open3d cylinder3d shade3d addNormals subdivision3d par3d rotationMatrix rgl.viewpoint translationMatrix observer3d
+#' @importFrom rgl open3d cylinder3d shade3d addNormals subdivision3d par3d rotationMatrix view3d translationMatrix observer3d
 #'
 #' @param position either a 3-vector, a single number or NULL. A vector directly specifies the location of camera. A single number specifies the distances of the camera along the z-axis, relative to the center of the scene (= center of the bounding box returned by \code{\link[rgl]{par3d}}). If no positions is given, then the camera is placed automatically.
 #' @param direction optional 3-vector specifying the direction in which the observer is looking, that is the optical axis of the virtual camera. The norm of the vector is irrelevant, but has to be non-zero. If not given, the camera is pointed at the center of the scene.
 #' @param up optional single number or 3-vector, specifying the rotation of the camera around the optical axis (as defined with the argument direction). If a single number is provided, it is normally interpreted as the angle in degrees between the up-direction of the 2d camera image and the projected z-axis of the 3d scene. To avoid the singularity that occurs if the optical axis lies very close to the z-axis, "up" is, in this case, interpreted as the angle between the up-direction and the y-axis. If a 3-vector is provided, it is interpreted such that its projection points upwards on the projected image seen by the camera. Thus, this 3-vector must *not* be parallel to the direction.
-#' @param fov field of view in degrees, as used in \code{\link[rgl]{rgl.viewpoint}}. This is roughly the field-of-view seen along the shortest axis of the window.
+#' @param fov field of view in degrees, as used in \code{\link[rgl]{view3d}}. This is roughly the field-of-view seen along the shortest axis of the window.
 #'
 #' @return None
 #'
@@ -92,7 +92,7 @@ rgl.camera = function(position=NULL, direction=NULL, up=NULL, fov=0) {
   skip = rgl::par3d()$skipRedraw
   on.exit(rgl::par3d(skipRedraw=skip))
   rgl::par3d(skipRedraw=TRUE)
-  rgl::rgl.viewpoint(userMatrix=um,fov=fov)
+  rgl::view3d(userMatrix=um,fov=fov)
   rgl::observer3d(0,0,sperp)
 
 }

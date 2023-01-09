@@ -2,7 +2,7 @@
 #'
 #' @description Calls \code{\link[rgl]{open3d}} and various additional functions to initialize a 3d plot.
 #'
-#' @importFrom rgl open3d par3d decorate3d bg3d rotationMatrix rgl.viewpoint rgl.spheres rgl.clear
+#' @importFrom rgl open3d par3d decorate3d bg3d rotationMatrix view3d spheres3d clear3d
 #'
 #' @param width either an integer (>1) specifying the number of pixels in the horizontal direction, or a real value (>0 and <=1) specifying the fraction of the available pixels. If the selected aspect ratio causes the number of vertical pixels to exceed the available number, the width is reduced as much as necessary.
 #' @param aspect aspect ratio of window, defined as the ratio of vertical-to-horizontal size.
@@ -19,7 +19,7 @@
 #' @param axes logical flag specifying whether axes are displayed
 #' @param fixed logical flag. If \code{TRUE} (default), the range of the axes is *not* adjusted as objects are drawn.
 #' @param close.all logical flag. If \code{TRUE} (default), all existing rgl windows are closed before the new window is opened.
-#' @param ... additional arguments for \code{\link[rgl]{rgl.viewpoint}}.
+#' @param ... additional arguments for \code{\link[rgl]{view3d}}.
 #'
 #' @return None
 #'
@@ -54,7 +54,7 @@ rgl.new = function(width=0.5, aspect=16/9,
   }
 
   # set light source
-  if (!light) rgl::rgl.clear(type="lights")
+  if (!light) rgl::clear3d(type="lights")
 
   # set scales and axes
   rgl::decorate3d(xlim=xlim, ylim=ylim, zlim=zlim, axes=axes,
@@ -65,7 +65,7 @@ rgl.new = function(width=0.5, aspect=16/9,
   if (is.matrix(orientation)) {
     if (dim(orientation)[1]!=3 | dim(orientation)[2]!=3) stop('orientation must be a 3-by-3 matrix or a 2-character string')
     userMatrix = rgl::rotationMatrix(matrix=orientation)
-    rgl::rgl.viewpoint(userMatrix=rgl::identityMatrix(), fov=fov, ...)
+    rgl::view3d(userMatrix=rgl::identityMatrix(), fov=fov, ...)
   } else if (is.character(orientation)) {
     if (nchar(orientation)!=2) stop('orientation must be a 3-by-3 matrix or a 2-character string')
     rgl.orthoview(plane=orientation, fov=fov, ...)

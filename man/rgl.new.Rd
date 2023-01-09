@@ -54,7 +54,7 @@ rgl.new(
 
 \item{close.all}{logical flag. If \code{TRUE} (default), all existing rgl windows are closed before the new window is opened.}
 
-\item{...}{additional arguments for \code{\link[rgl]{rgl.viewpoint}}.}
+\item{...}{additional arguments for \code{\link[rgl]{view3d}}.}
 }
 \value{
 None

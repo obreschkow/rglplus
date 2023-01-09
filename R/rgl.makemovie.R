@@ -1,7 +1,7 @@
 #' Produce a movie from and 3d rgl scene
 #'
 #' @importFrom stats splinefun approxfun
-#' @importFrom rgl rgl.snapshot par3d lines3d clear3d rgl.light
+#' @importFrom rgl rgl.snapshot par3d lines3d clear3d light3d
 #'
 #' @description Generates an MP4-movie of a 3d rgl scene with time-dependent objects and/or a camera path. The routine has been developed and tested for MacOS and it requires on a working installation of ffmpeg.
 #'
@@ -38,7 +38,7 @@
 #' \donttest{
 #' rgl.new(aspect=4/3, col='black', xlim=c(-4,4), ylim=c(-4,4), zlim=c(-4,4))
 #' rgl::clear3d(type = "lights")
-#' rgl::rgl.light(30,60,viewpoint.rel = FALSE)
+#' rgl::light3d(30,60,viewpoint.rel = FALSE)
 #' }
 #'
 #' # Make frame function
