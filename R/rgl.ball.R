@@ -2,7 +2,7 @@
 #'
 #' @description Draws a sphere in custom resolution with custom surface image.
 #'
-#' @importFrom rgl open3d cube3d subdivision3d asHomogeneous2 asEuclidean2 addNormals shade3d surface3d rgl.light
+#' @importFrom rgl open3d cube3d subdivision3d asHomogeneous2 asEuclidean2 addNormals shade3d surface3d light3d
 #'
 #' @param x x-coordinate of the center of the sphere
 #' @param y y-coordinate of the center of the sphere
@@ -12,7 +12,7 @@
 #' @param png optional character string specifying the file name of a png-image to be rendered on the sphere. This file must contain the map to be displayed in an equirectangular projection (also known as equidistant cylindrical projection).
 #' @param rotation optional 3-by-3 or or 4-by-4 rotation matrix applied to the whole globe; only used of \code{png} is specified.
 #' @param normals character string specifying the way the normal vectors of the surface are internally passed to \code{\link[rgl]{surface3d}}. This argument is available because \code{\link[rgl]{surface3d}} (or rather the underlying routine \code{\link[rgl]{rgl.surface}}) sometimes handles the sign of normal vectors incorrectly, causing light sources to appear in the wrong direction if a rotation matrix is provided. The argument can take three values: "none" does not pass any normal vectors to \code{\link[rgl]{rgl.surface}}, hence avoiding any issues with the direction of light sources, but this can cause glitches at the 180-degree meridian (choose a high depth around 7 in this case); "standard" passes correct normal vectors to \code{\link[rgl]{rgl.surface}}, which can cause wrong lighting for certain rotation matrices; "improved" is similar to "standard", but corrects the lighting errors in most cases.
-#' @param ... additional parameter to refine the material properties (see \code{\link[rgl]{rgl.material}}).
+#' @param ... additional parameter to refine the material properties (see \code{\link[rgl]{material3d}}).
 #'
 #' @return None
 #'

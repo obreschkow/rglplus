@@ -9,9 +9,9 @@ rgl.orthoview(plane = "xy", fov = 0, ...)
 \arguments{
 \item{plane}{character string, which can be either of `xy`, `yx`, `yz`, `zy`, `zx`, `xz`, where the  first letter is the axis displayed from left to right and the second letter is the axis displayed from bottom to top. The third axis points either out of the screen or into the screen following the right-hand convention.}
 
-\item{fov}{field of view in degrees, as used in \code{\link[rgl]{rgl.viewpoint}}.}
+\item{fov}{field of view in degrees, as used in \code{\link[rgl]{view3d}}.}
 
-\item{...}{additional arguments for \code{\link[rgl]{rgl.viewpoint}}.}
+\item{...}{additional arguments for \code{\link[rgl]{view3d}}.}
 }
 \value{
 None
