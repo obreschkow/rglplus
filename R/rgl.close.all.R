@@ -2,9 +2,7 @@
 #'
 #' @description Checks if any rgl windows are currently open and, if so, closes them.
 #'
-#' @importFrom rgl rgl.cur rgl.close
-#'
-#' @return None
+#' @importFrom rgl close3d rgl.dev.list
 #'
 #' @author Danail Obreschkow
 #'
@@ -12,6 +10,6 @@
 
 rgl.close.all = function() {
 
-  while (rgl::rgl.cur()[[1]]>0) {rgl::rgl.close()}
+  close3d(rgl.dev.list())
 
 }

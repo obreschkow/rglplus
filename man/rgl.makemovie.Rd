@@ -17,7 +17,8 @@ rgl.makemovie(
   quiet = TRUE,
   separator = .Platform$file.sep,
   ffmpeg.cmd = "ffmpeg",
-  ffmpeg.opt = "-vcodec libx264 -crf 18 -pix_fmt yuv420p"
+  ffmpeg.opt = "-vcodec libx264 -crf 18 -pix_fmt yuv420p",
+  manual = FALSE
 )
 }
 \arguments{
@@ -51,9 +52,11 @@ rgl.makemovie(
 \item{ffmpeg.cmd}{command used to call ffmpeg form a terminal. Normally, this is just 'ffmpeg'.}
 
 \item{ffmpeg.opt}{optional arguments used with ffmpeg, such as compression and formatting options (see \url{https://www.ffmpeg.org/ffmpeg.html}).}
+
+\item{manual}{logical flag, if TRUE, ffmpeg is not run automatically. The ffmpeg command line is returned.}
 }
 \value{
-None
+Returns the command line to run ffmpeg in a terminal.
 }
 \description{
 Generates an MP4-movie of a 3d rgl scene with time-dependent objects and/or a camera path. The routine has been developed and tested for MacOS and it requires on a working installation of ffmpeg.
@@ -67,7 +70,7 @@ To accelerate the movie generation, it is possible to suppress the screen update
 \donttest{
 rgl.new(aspect=4/3, col='black', xlim=c(-4,4), ylim=c(-4,4), zlim=c(-4,4))
 rgl::clear3d(type = "lights")
-rgl::rgl.light(30,60,viewpoint.rel = FALSE)
+rgl::light3d(30,60,viewpoint.rel = FALSE)
 }
 
 # Make frame function

@@ -5,7 +5,7 @@
 #' @param center 3-vector specifying the centre of the 3D plot.
 #' @param width either an integer (>1) specifying the number of pixels in the horizontal direction, or a real value (>0 and <=1) specifying the fraction of the available pixels. If the selected aspect ratio causes the number of vertical pixels to exceed the available number, the width is reduced as much as necessary.
 #'
-#' @importFrom rgl rgl.clear rgl.light lines3d points3d text3d axis3d
+#' @importFrom rgl rgl.clear light3d lines3d points3d text3d axis3d
 #'
 #' @return None
 #'
@@ -20,9 +20,9 @@ rgl.test.scene = function(center=c(0,0,0), width=0.5) {
 
   # add light sources
   rgl::rgl.clear(type="lights")
-  rgl::rgl.light(0, 90, specular = 'green', diffuse='green', viewpoint.rel = FALSE)
-  rgl::rgl.light(90, 0, specular = 'red', diffuse='red', viewpoint.rel = FALSE)
-  rgl::rgl.light(0, 0, specular = 'blue', diffuse='blue', viewpoint.rel = FALSE)
+  rgl::light3d(0, 90, specular = 'green', diffuse='green', viewpoint.rel = FALSE)
+  rgl::light3d(90, 0, specular = 'red', diffuse='red', viewpoint.rel = FALSE)
+  rgl::light3d(0, 0, specular = 'blue', diffuse='blue', viewpoint.rel = FALSE)
 
   # draw axes
   rgl::lines3d(center[1]+c(-1,1),center[2]+c(0,0),center[3]+c(0,0),col='#aa0000',lwd=2)
@@ -43,4 +43,3 @@ rgl.test.scene = function(center=c(0,0,0), width=0.5) {
   rgl::text3d(center[1],center[2],center[3]+1.05,'z')
 
 }
-

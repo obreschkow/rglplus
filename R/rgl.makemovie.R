@@ -1,7 +1,7 @@
 #' Produce a movie from and 3d rgl scene
 #'
 #' @importFrom stats splinefun approxfun
-#' @importFrom rgl rgl.snapshot par3d lines3d clear3d rgl.light
+#' @importFrom rgl snapshot3d par3d lines3d clear3d light3d
 #'
 #' @description Generates an MP4-movie of a 3d rgl scene with time-dependent objects and/or a camera path. The routine has been developed and tested for MacOS and it requires on a working installation of ffmpeg.
 #'
@@ -23,12 +23,13 @@
 #' @param separator filename separate of the system ('/' for Mac, Linux, Unix; '\' for Windows)
 #' @param ffmpeg.cmd command used to call ffmpeg form a terminal. Normally, this is just 'ffmpeg'.
 #' @param ffmpeg.opt optional arguments used with ffmpeg, such as compression and formatting options (see \url{https://www.ffmpeg.org/ffmpeg.html}).
+#' @param manual logical flag, if TRUE, ffmpeg is not run automatically. The ffmpeg command line is returned.
 #'
 #' @details
 #' Note that the frame width and height should be divisible by 2 for mp4 video compression to work.\cr
 #' To accelerate the movie generation, it is possible to suppress the screen update by calling \code{\link{rgl.hold}} before calling \code{rgl.makemovie}.
 #'
-#' @return None
+#' @return Returns the command line to run ffmpeg in a terminal.
 #'
 #' @author Danail Obreschkow
 #'
@@ -38,7 +39,7 @@
 #' \donttest{
 #' rgl.new(aspect=4/3, col='black', xlim=c(-4,4), ylim=c(-4,4), zlim=c(-4,4))
 #' rgl::clear3d(type = "lights")
-#' rgl::rgl.light(30,60,viewpoint.rel = FALSE)
+#' rgl::light3d(30,60,viewpoint.rel = FALSE)
 #' }
 #'
 #' # Make frame function
@@ -75,7 +76,8 @@ rgl.makemovie = function(frame=NULL, path=NULL,
                          keep.frames=FALSE,quiet=TRUE,
                          separator=.Platform$file.sep,
                          ffmpeg.cmd='ffmpeg',
-                         ffmpeg.opt='-vcodec libx264 -crf 18 -pix_fmt yuv420p') {
+                         ffmpeg.opt='-vcodec libx264 -crf 18 -pix_fmt yuv420p',
+                         manual=FALSE) {
 
   if (is.null(frame) & is.null(path)) stop('at least one of the arguments frame or path should be provided to make successive frames different.')
 
@@ -225,7 +227,7 @@ rgl.makemovie = function(frame=NULL, path=NULL,
 
     # save frame
     fn = file.path(frame.path,sprintf('frame_%0.8d.png',i))
-    rgl::rgl.snapshot(filename=fn,fmt="png",top=TRUE)
+    rgl::snapshot3d(filename=fn,fmt="png",top=TRUE)
   }
 
   # convert into movie
@@ -235,13 +237,15 @@ rgl.makemovie = function(frame=NULL, path=NULL,
                  ffmpeg.cmd,fps,linuxspaces(frame.path),ffmpeg.opt,
                  linuxspaces(output.path),linuxspaces(output.filename),
                  ifelse(quiet,'-loglevel quiet',''))
-  system(call)
+  if (!manual) system(call)
 
   # remove frames
   if (!keep.frames) {
     cat('Delete individual frames.\n')
-    call = sprintf('rm -rf %s',frame.path)
-    system(call)
+    callrm = sprintf('rm -rf %s',frame.path)
+    system(callrm)
   }
+
+  return(call)
 
 }

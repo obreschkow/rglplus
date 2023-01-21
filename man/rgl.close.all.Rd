@@ -6,9 +6,6 @@
 \usage{
 rgl.close.all()
 }
-\value{
-None
-}
 \description{
 Checks if any rgl windows are currently open and, if so, closes them.
 }

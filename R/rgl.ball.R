@@ -2,7 +2,7 @@
 #'
 #' @description Draws a sphere in custom resolution with custom surface image.
 #'
-#' @importFrom rgl open3d cube3d subdivision3d asHomogeneous2 asEuclidean2 addNormals shade3d surface3d rgl.light
+#' @importFrom rgl open3d cube3d subdivision3d asHomogeneous2 asEuclidean2 addNormals shade3d surface3d
 #'
 #' @param x x-coordinate of the center of the sphere
 #' @param y y-coordinate of the center of the sphere
