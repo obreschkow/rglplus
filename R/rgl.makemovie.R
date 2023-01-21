@@ -227,7 +227,7 @@ rgl.makemovie = function(frame=NULL, path=NULL,
 
     # save frame
     fn = file.path(frame.path,sprintf('frame_%0.8d.png',i))
-    rgl::snapshot3d(filename=fn,fmt="png",top=TRUE)
+    rgl::snapshot3d(filename=fn,fmt="png",top=TRUE,webshot=FALSE)
   }
 
   # convert into movie
