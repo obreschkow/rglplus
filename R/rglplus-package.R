@@ -4,6 +4,5 @@
 #'
 #' @author Danail Obreschkow
 #'
-#' @docType package
-#' @name rglplus
+"_PACKAGE"
 NULL

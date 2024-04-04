@@ -19,7 +19,7 @@ rgl.test.scene = function(center=c(0,0,0), width=0.5) {
   rgl.new(xlim=center[1]+c(-1,1), ylim=center[2]+c(-1,1), zlim=center[3]+c(-1,1), width=width, aspect=1, fov=0)
 
   # add light sources
-  rgl::rgl.clear(type="lights")
+  rgl::clear3d(type="lights")
   rgl::light3d(0, 90, specular = 'green', diffuse='green', viewpoint.rel = FALSE)
   rgl::light3d(90, 0, specular = 'red', diffuse='red', viewpoint.rel = FALSE)
   rgl::light3d(0, 0, specular = 'blue', diffuse='blue', viewpoint.rel = FALSE)
